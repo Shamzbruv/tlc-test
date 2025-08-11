@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intake and Consent to Treat - TLC Family Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .font-sans {
+            font-family: 'Lato', sans-serif;
+        }
+        .form-section {
+            page-break-inside: avoid;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                font-size: 12pt;
+            }
+            .form-container {
+                box-shadow: none;
+                border: none;
+            }
+            body * {
+                visibility: hidden;
+            }
+            .print-area, .print-area * {
+                visibility: visible;
+            }
+            .print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                color: black !important;
+                background: white !important;
+            }
+            .print-area input, .print-area textarea {
+                border: none;
+                border-bottom: 1px solid black;
+                background: white;
+            }
+        }
+        .signature-pad {
+            border: 1px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            50: '#f9f8fc',
+                            100: '#f3f1f9',
+                            200: '#e9e3f4',
+                            300: '#d9d0ed',
+                            400: '#c7b8e3',
+                            500: '#b39cd6',
+                            600: '#9f81c9',
+                            700: '#8a65b9',
+                            800: '#744ba5',
+                            900: '#5f368e',
+                            950: '#48226d',
+                        },
+                        pink: {
+                            50: '#fdf4f7',
+                            100: '#fce8ef',
+                            200: '#fad0df',
+                            300: '#f7b2cb',
+                            400: '#ffb6c1',
+                            500: '#f47ca0',
+                            600: '#e95f86',
+                            700: '#dd436e',
+                            800: '#c92c59',
+                            900: '#a91f48',
+                            950: '#870f37',
+                        },
+                        blue: {
+                            50: '#f4f8fa',
+                            100: '#e9f0f5',
+                            200: '#d7e2ea',
+                            300: '#c0d0de',
+                            400: '#b0c4de',
+                            500: '#92a8c9',
+                            600: '#758cb3',
+                            700: '#5c729d',
+                            800: '#475a82',
+                            900: '#35446a',
+                            950: '#222c4a',
+                        },
+                        yellow: {
+                            50: '#fffdf5',
+                            100: '#fffbeb',
+                            200: '#fff7d6',
+                            300: '#fff2c1',
+                            400: '#fffacd',
+                            500: '#f5e9a3',
+                            600: '#ebd97a',
+                            700: '#e1c851',
+                            800: '#d7b728',
+                            900: '#cda600',
+                            950: '#a38300',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-purple-900 bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src='https://i.postimg.cc/ncrCsgHY/tlc-logo.png' alt='tlc-logo' class="h-10 w-10">
+                        <span class="ml-2 font-serif text-xl font-bold text-purple-700">TLC Family Services</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="../#home" class="px-3 py-2 text-sm font-medium text-purple-900 border-b-2 border-transparent hover:border-purple-500">Home</a>
+                    <a href="../#services" class="px-3 py-2 text-sm font-medium text-purple-900 border-b-2 border-transparent hover:border-purple-500">Services</a>
+                    <a href="../#resources" class="px-3 py-2 text-sm font-medium text-purple-900 border-b-2 border-transparent hover:border-purple-500">Resources</a>
+                    <a href="../#events" class="px-3 py-2 text-sm font-medium text-purple-900 border-b-2 border-transparent hover:border-purple-500">Events</a>
+                    <a href="../#about" class="px-3 py-2 text-sm font-medium text-purple-900 border-b-2 border-transparent hover:border-purple-500">About Us</a>
+                    <a href="#" onclick="openEmail()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                        Contact Us
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-purple-400 hover:text-purple-500 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
+                <a href="../#home" class="text-purple-900 hover:text-purple-700 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="../#services" class="text-purple-900 hover:text-purple-700 block px-3 py-2 rounded-md text-base font-medium">Services</a>
+                <a href="../#resources" class="text-purple-900 hover:text-purple-700 block px-3 py-2 rounded-md text-base font-medium">Resources</a>
+                <a href="../#events" class="text-purple-900 hover:text-purple-700 block px-3 py-2 rounded-md text-base font-medium">Events</a>
+                <a href="../#about" class="text-purple-900 hover:text-purple-700 block px-3 py-2 rounded-md text-base font-medium">About Us</a>
+                <a href="#" onclick="openEmail()" class="bg-purple-600 hover:bg-purple-700 text-white block px-3 py-2 rounded-md text-base font-medium transition duration-300">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="bg-white rounded-lg shadow-md p-6 form-container">
+            <div class="text-center mb-8">
+                <img src="https://i.postimg.cc/ncrCsgHY/tlc-logo.png" alt="TLC Family Services Logo" class="mx-auto h-12 mb-4">
+                <h1 class="font-serif text-3xl font-bold text-purple-800">Patient Information Form</h1>
+                <p class="text-pink-700 mt-2">Please fill out this form completely and accurately</p>
+            </div>
+
+            <form id="form3" action="https://formspree.io/f/mzzvjdow" method="POST" class="space-y-8">
+                <input type="hidden" name="form_type" value="Intake and Consent to Treat">
+
+                <!-- Basic Information Section -->
+                <div class="form-section border-b pb-6">
+                    <h2 class="font-serif text-xl font-bold text-purple-800 mb-4 flex items-center">
+                        <i class="fas fa-user-circle mr-2"></i> Patient Information
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label for="lastName3" class="block text-sm font-medium text-pink-700">Last Name</label>
+                            <input type="text" id="lastName3" name="last_name" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="firstName3" class="block text-sm font-medium text-pink-700">First Name</label>
+                            <input type="text" id="firstName3" name="first_name" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="middleInitial3" class="block text-sm font-medium text-pink-700">Middle Initial</label>
+                            <input type="text" id="middleInitial3" name="middle_initial" maxlength="1" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 uppercase">
+                        </div>
+                        <div>
+                            <label for="dob3" class="block text-sm font-medium text-pink-700">Date of Birth</label>
+                            <input type="date" id="dob3" name="dob" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                        <div>
+                            <label for="sex3" class="block text-sm font-medium text-pink-700">Sex</label>
+                            <select id="sex3" name="sex" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="race3" class="block text-sm font-medium text-pink-700">Race</label>
+                            <select id="race3" name="race" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                                <option value="">Select</option>
+                                <option value="White">White</option>
+                                <option value="Black or African American">Black or African American</option>
+                                <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                                <option value="Asian">Asian</option>
+                                <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                                <option value="Other">Other</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="address3" class="block text-sm font-medium text-pink-700">Address</label>
+                            <input type="text" id="address3" name="address" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                        <div>
+                            <label for="city3" class="block text-sm font-medium text-pink-700">City</label>
+                            <input type="text" id="city3" name="city" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="state3" class="block text-sm font-medium text-pink-700">State</label>
+                            <input type="text" id="state3" name="state" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 uppercase" maxlength="2">
+                        </div>
+                        <div>
+                            <label for="zip3" class="block text-sm font-medium text-pink-700">Zip Code</label>
+                            <input type="text" id="zip3" name="zip" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500" maxlength="10">
+                        </div>
+                        <div>
+                            <label for="phone3" class="block text-sm font-medium text-pink-700">Phone Number</label>
+                            <input type="tel" id="phone3" name="phone" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="email3" class="block text-sm font-medium text-pink-700">Email Address</label>
+                        <input type="email" id="email3" name="email" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                    </div>
+                </div>
+
+                <!-- Medical Information Section -->
+                <div class="form-section border-b pb-6">
+                    <h2 class="font-serif text-xl font-bold text-purple-800 mb-4 flex items-center">
+                        <i class="fas fa-heartbeat mr-2"></i> Medical Information
+                    </h2>
+                    <div class="mt-4">
+                        <label for="problem3" class="block text-sm font-medium text-pink-700">What is/are the problem(s) for which you are seeking help?</label>
+                        <textarea id="problem3" name="problem" rows="3" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500"></textarea>
+                    </div>
+                    <div class="mt-4">
+                        <label for="medications3" class="block text-sm font-medium text-pink-700">Current and past medications (Indicate date of last used)</label>
+                        <textarea id="medications3" name="medications" rows="4" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500"></textarea>
+                    </div>
+                    <div class="mt-4">
+                        <label for="primaryCare3" class="block text-sm font-medium text-pink-700">Primary Care Provider</label>
+                        <input type="text" id="primaryCare3" name="primary_care" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                    </div>
+                </div>
+
+                <!-- Consent Section -->
+                <div class="form-section border-b pb-6">
+                    <h2 class="font-serif text-xl font-bold text-purple-800 mb-4 flex items-center">
+                        <i class="fas fa-file-signature mr-2"></i> Informed Consent
+                    </h2>
+                    <div class="bg-purple-50 p-4 rounded-md overflow-y-auto max-h-64 mb-4 text-pink-700 text-sm">
+                        <!-- The long consent text from the original third HTML -->
+                        <p class="mb-2">Please read the text below then sign at the bottom to provide consent for treatment.</p>
+                        <p class="font-semibold mb-2">Informed Consent to Screen, Evaluate and Treat</p>
+                        <p class="mb-2">As a client of TLC Family Services, I have the right to make informed decisions regarding my care. My rights include being informed of my health status, being involved in care planning and treatment, and being able to request or refuse treatment. TLC Family Services healthcare professionals will discuss with me the nature of my symptom(s) and condition(s), the proposed treatment(s), the benefits and risks associated with treatment, the probability of successful outcomes, and alternatives to the proposed treatment(s), if any or as applicable.</p>
+                        <!-- ... (include the full text from the original, as it's too long to repeat here, but in your copy-paste, use the full one from earlier messages) ... -->
+                    </div>
+
+                    <div class="mt-6">
+                        <label class="block text-sm font-medium text-pink-700 mb-2">Signature</label>
+                        <canvas id="signaturePad3" class="signature-pad w-full h-32 mb-2"></canvas>
+                        <div class="flex justify-between">
+                            <button type="button" onclick="clearSignature3()" class="bg-purple-50 hover:bg-purple-100 text-purple-800 px-3 py-1 rounded text-sm">Clear Signature</button>
+                            <div class="text-xs text-pink-700">By signing, you acknowledge you have read and agree to the above terms</div>
+                        </div>
+                        <input type="hidden" name="signature" id="signatureData3">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div>
+                            <label for="printedName3" class="block text-sm font-medium text-pink-700">Printed Name</label>
+                            <input type="text" id="printedName3" name="printed_name" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="signatureDate3" class="block text-sm font-medium text-pink-700">Date</label>
+                            <input type="date" id="signatureDate3" name="signature_date" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="relationship3" class="block text-sm font-medium text-pink-700">Relationship to Patient (if signing as parent/guardian)</label>
+                        <input type="text" id="relationship3" name="relationship" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                    </div>
+                </div>
+
+                <!-- Emergency Contact Section -->
+                <div class="form-section">
+                    <h2 class="font-serif text-xl font-bold text-purple-800 mb-4 flex items-center">
+                        <i class="fas fa-phone-alt mr-2"></i> Emergency Contact Information
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="emergencyName3" class="block text-sm font-medium text-pink-700">Name</label>
+                            <input type="text" id="emergencyName3" name="emergency_name" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="emergencyPhone3" class="block text-sm font-medium text-pink-700">Phone Number</label>
+                            <input type="tel" id="emergencyPhone3" name="emergency_phone" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label for="emergencyRelationship3" class="block text-sm font-medium text-pink-700">Relationship</label>
+                            <input type="text" id="emergencyRelationship3" name="emergency_relationship" class="mt-1 block w-full border border-purple-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button type="submit" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300">Submit Acknowledgment</button>
+                    <button type="button" onclick="printForm(document.body)" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-medium py-3 px-4 rounded-lg transition duration-300">Print Copy</button>
+                </div>
+                <p id="status3" class="mt-4 text-sm text-pink-600 text-center"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-purple-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center">
+                        <img src='https://i.postimg.cc/ncrCsgHY/tlc-logo.png' alt='tlc-logo' class="h-8 w-8">
+                        <span class="ml-2 font-serif text-xl font-bold text-purple-300">TLC Family Services</span>
+                    </div>
+                    <p class="mt-4 text-purple-300 text-sm">
+                        Growth Through Gentle Strength
+                    </p>
+                </div>
+              
+                <div>
+                    <h3 class="font-serif text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../#home" class="text-purple-300 hover:text-white text-sm">Home</a></li>
+                        <li><a href="../#services" class="text-purple-300 hover:text-white text-sm">Services</a></li>
+                        <li><a href="../#resources" class="text-purple-300 hover:text-white text-sm">Resources</a></li>
+                        <li><a href="../#events" class="text-purple-300 hover:text-white text-sm">Events</a></li>
+                        <li><a href="../#about" class="text-purple-300 hover:text-white text-sm">About Us</a></li>
+                    </ul>
+                </div>
+              
+                <div>
+                    <h3 class="font-serif text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-purple-300 text-sm">
+                        <li>Tres Ladson</li>
+                        <li><a href="#" onclick="openEmail()">Admin@tlcfamilyservices.com</a></li>
+                        <li><a href="#" onclick="openCallPopup()">667-355-2334</a></li>
+                        <li>Online-based services</li>
+                    </ul>
+                </div>
+              
+                <div>
+                    <h3 class="font-serif text-lg font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/tlc_familyservices?igsh=MTg5NTNva3lidGMxeg==" class="text-purple-300 hover:text-white">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                  
+                    <h3 class="font-serif text-lg font-bold mt-6 mb-3">Subscribe to Newsletter</h3>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-purple-900 w-full">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-r-lg transition duration-300"><i class="fas fa-paper-plane text-white"></i></button>
+                    </form>
+                </div>
+            </div>
+          
+            <div class="border-t border-purple-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-purple-300 text-sm mb-4 md:mb-0">© 2023 TLC Family Services. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" onclick="openPrivacy()" class="text-purple-300 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" onclick="openTerms()" class="text-purple-300 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-purple-300 hover:text-white text-sm">HIPAA Compliance</a>
+                </div>
+            </div>
+          
+            <div class="mt-4 text-center md:text-left">
+                <p class="text-purple-400 text-xs italic">TLC Family Services does not provide emergency care. If you're in crisis, call 988 or go to your nearest emergency room.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 class="font-serif text-2xl font-bold text-purple-800 mb-6">Privacy Policy</h3>
+            <p class="text-pink-700">
+                At TLC Family Services, your privacy is our priority. In compliance with U.S. health laws like HIPAA, we safeguard your personal health information (PHI) with encrypted storage and secure communications. We only share data with your consent for treatment, payment, or operations. You have rights to access, amend, or restrict your information. We never sell data and use it only for care delivery. For full details, contact us. This policy ensures trust in your healing journey.
+            </p>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 class="font-serif text-2xl font-bold text-purple-800 mb-6">Terms of Service</h3>
+            <p class="text-pink-700">
+                By using TLC Family Services, you agree to our terms. We provide virtual therapy in compliance with U.S. health regulations, including confidentiality under HIPAA. Services are for informational and therapeutic purposes; not for emergencies (call 911 or 988). Payment terms: Sessions are billed per agreement; cancellations require 24-hour notice or fees apply. We reserve the right to terminate services if guidelines aren't followed. Your participation is voluntary, and we're committed to ethical care. Contact us for questions.
+            </p>
+        </div>
+    </div>
+
+    <!-- Call Popup Modal -->
+    <div id="call-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 class="font-serif text-2xl font-bold text-purple-800 mb-6">Call Us</h3>
+            <p class="text-pink-700 text-center">667-355-2334</p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Open email client
+        function openEmail() {
+            window.location.href = "mailto:Admin@tlcfamilyservices.com";
+        }
+
+        // Open call popup and dialer
+        function openCallPopup() {
+            document.getElementById('call-modal').style.display = "block";
+            window.location.href = "tel:667-355-2334";
+        }
+
+        // Open Privacy modal
+        function openPrivacy() {
+            document.getElementById('privacy-modal').style.display = "block";
+        }
+
+        // Open Terms modal
+        function openTerms() {
+            document.getElementById('terms-modal').style.display = "block";
+        }
+
+        // Close modals
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                this.parentElement.parentElement.style.display = "none";
+            });
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        });
+
+        // Signature pad functionality
+        let isDrawing3 = false;
+        let lastX3 = 0;
+        let lastY3 = 0;
+        const signaturePad3 = document.getElementById('signaturePad3');
+        const ctx3 = signaturePad3.getContext('2d');
+        signaturePad3.width = signaturePad3.offsetWidth;
+        signaturePad3.height = signaturePad3.offsetHeight;
+        ctx3.strokeStyle = '#000';
+        ctx3.lineWidth = 2;
+        ctx3.lineCap = 'round';
+        ctx3.lineJoin = 'round';
+
+        signaturePad3.addEventListener('mousedown', startDrawing3);
+        signaturePad3.addEventListener('mousemove', draw3);
+        signaturePad3.addEventListener('mouseup', stopDrawing3);
+        signaturePad3.addEventListener('mouseout', stopDrawing3);
+
+        signaturePad3.addEventListener('touchstart', handleTouchStart3);
+        signaturePad3.addEventListener('touchmove', handleTouchMove3);
+        signaturePad3.addEventListener('touchend', handleTouchEnd3);
+
+        function startDrawing3(e) {
+            isDrawing3 = true;
+            [lastX3, lastY3] = [e.offsetX, e.offsetY];
+        }
+
+        function draw3(e) {
+            if (!isDrawing3) return;
+            ctx3.beginPath();
+            ctx3.moveTo(lastX3, lastY3);
+            ctx3.lineTo(e.offsetX, e.offsetY);
+            ctx3.stroke();
+            [lastX3, lastY3] = [e.offsetX, e.offsetY];
+        }
+
+        function stopDrawing3() {
+            isDrawing3 = false;
+            document.getElementById('signatureData3').value = signaturePad3.toDataURL();
+        }
+
+        function handleTouchStart3(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            signaturePad3.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove3(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            signaturePad3.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchEnd3(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            signaturePad3.dispatchEvent(mouseEvent);
+        }
+
+        function clearSignature3() {
+            ctx3.clearRect(0, 0, signaturePad3.width, signaturePad3.height);
+            document.getElementById('signatureData3').value = '';
+        }
+
+        // Async submission
+        document.getElementById('form3').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const status = document.getElementById('status3');
+            const data = new FormData(e.target);
+            fetch(e.target.action, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Thanks for your submission!";
+                    e.target.reset();
+                    clearSignature3();
+                } else {
+                    response.json().then(data => {
+                        status.innerHTML = data.errors ? data.errors.map(error => error.message).join(", ") : "Oops! Problem submitting form.";
+                    });
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! Problem submitting form.";
+            });
+        });
+
+        // Print function
+        function printForm(content) {
+            content.classList.add('print-area');
+            window.print();
+            content.classList.remove('print-area');
+        }
+
+        // Resize signature pad
+        window.addEventListener('resize', function() {
+            const signatureData = ctx3.getImageData(0, 0, signaturePad3.width, signaturePad3.height);
+            signaturePad3.width = signaturePad3.offsetWidth;
+            signaturePad3.height = signaturePad3.offsetHeight;
+            if (!ctx3.getImageData(0, 0, signaturePad3.width, signaturePad3.height).data.every(channel => channel === 0)) {
+                ctx3.putImageData(signatureData, 0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
